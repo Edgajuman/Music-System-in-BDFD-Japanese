@@ -16,7 +16,7 @@ Bot Designer For Discord でDiscordボットと音楽を再生するための高
 
 ## コマンド
 - ! (このコードは6つのコマンドを1つにまとめたものなので、プレフィックスのみ入力してください。例: !)
-- !play
+- !遊ぶ
 - $onInteraction[Musics]
 
 
