@@ -1,6 +1,6 @@
 $nomention
 $if[$isSlash==true]
-$var[MS;$message[song]]
+$var[MS;$message[canción]]
 $else
 $var[MS;$message]
 $endif
@@ -9,14 +9,14 @@ $onlyIf[$var[MS]!=;曲名を入力してください。]
 $var[ID;$sendMessage[**$var[MS]**を検索中。;yes]]
 
 $httpPost[https://akiomae.xyz/api/music/get/;{
-  “token”: “$getVar[TOKEN]”,
-  “bot_id”: “$botID”,
-  “user_id”: “$authorID”,
-  “guild_id”: “$guildID”,
-  “channel_id”: “$channelID”,
-  “name”: “$var[MS]”,
-  “deleteMessageID”: “$var[ID]”,
-  “lang”: “ja”
+  "token": "$getVar[TOKEN]",
+  "bot_id": "$botID",
+  "user_id": "$authorID",
+  "guild_id": "$guildID",
+  "channel_id": "$channelID",
+  "name": "$var[MS]",
+  "deleteMessageID": "$var[ID]",
+  "lang": "ja"
 }]
 
 $suppressErrors[]
