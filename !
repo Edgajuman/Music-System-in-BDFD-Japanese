@@ -1,0 +1,163 @@
+$suppressErrors
+
+$if[$checkContains[$message[1];一時停止]==true]
+$nomention
+$httpPost[http://node.akiomae.xyz:4402/API/pause;{
+    “token”: “$getVar[TOKEN]”,
+    “bot_id”: “$botID”,
+    “user_id”: “$authorID”,
+    “guild_id”: “$guildID”
+} ]
+
+$var[paused;$sendEmbedMessage[$channelID;;音楽が一時停止した。;;**$httpResult[currentTrack]**;000000;;;アキオマエ APIS;;;;yes;yes]]
+
+$endif
+
+$if[$checkContains[$message[1];履歴書;続ける]==true]
+$nomention
+$httpPost[http://node.akiomae.xyz:4402/API/resume;{
+    “token”: “$getVar[TOKEN]”,
+    “bot_id”: “$botID”,
+    “user_id”: “$authorID”,
+    “guild_id”: “$guildID”
+}]
+
+$var[resumed;$sendEmbedMessage[$channelID;;音楽が再開された。;;**$httpResult[currentTrack]**;000000;;;アキオマエ APIS;;;;yes;yes]]
+
+$endif
+
+$if[$checkContains[$message[1];停止;切断]==true]
+$nomention
+
+$var[ID;$sendMessage[音楽を停止中...;yes]]
+$httpPost[http://node.akiomae.xyz:4402/API/stop;{
+    “token”: “$getVar[TOKEN]”,
+    “bot_id”: “$botID”,
+    “user_id”: “$authorID”,
+    “guild_id”: “$guildID”
+}]
+$description[音楽が停止し、ボットの切断に成功しました
+-# プレイリストがリセットされました。]
+$footer[アキオマエ APIS]
+$addTimestamp
+
+$deleteMessage[$channelID;$var[ID]]
+$endif
+
+$if[$checkContains[$message[1];スキップ;次;前へ]==true]
+$nomention
+$httpPost[http://node.akiomae.xyz:4402/API/skip;{
+    “token”: “$getVar[TOKEN]”,
+    “bot_id”: “$botID”,
+    “user_id”: “$authorID”,
+    “guild_id”: “$guildID”
+}]
+
+$sendEmbedMessage[$channelID;;次の曲を再生します。;;**$httpResult[nextSong]**;000000;;;アキオマエ APIS;;;;yes;no]
+
+$endif
+
+$if[$checkContains[$message[1];戻る;前の]==true]
+$nomention
+$httpPost[http://node.akiomae.xyz:4402/API/back;{
+    “token”: “$getVar[TOKEN]”,
+    “bot_id”: “$botID”,
+    “user_id”: “$authorID”,
+    “guild_id”: “$guildID”
+}]
+$sendEmbedMessage[$channelID;;前の音楽を再生中。;;**$httpResult[nextSong]**;000000;;;アキオマエ APIS;;;;yes;no]
+
+$endif
+
+$if[$checkContains[$message[1];ジャンプ]==true]
+$nomention
+
+$httpPost[http://node.akiomae.xyz:4402/API/list;{
+    “token”: “$getVar[TOKEN]”,
+    “bot_id”: “$botID”,
+    “guild_id”: “$guildID”
+}]
+$if[$httpResult[songs;0;name]==]
+リストにはまだ曲がありません。$else
+$title[曲間をスキップする]
+$footer[アキオマエ APIS]
+$addTimestamp
+$description[リスト内の任意の曲にスキップします。]
+
+$newSelectMenu[Musics;1;1;リストから曲を選択してください]
+$addSelectMenuOption[Musics;$httpResult[songs;0;name];jmp-0;;;]$endif
+
+$if[$httpResult[songs;1;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;1;name];jmp-1;;;]
+$endif
+$if[$httpResult[songs;2;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;2;name];jmp-2;;;]
+$endif
+$if[$httpResult[songs;3;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;3;name];jmp-3;;;]
+$endif
+$if[$httpResult[songs;4;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;4;name];jmp-4;;;]
+$endif
+$if[$httpResult[songs;5;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;5;name];jmp-5;;;]
+$endif
+$if[$httpResult[songs;6;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;6;name];jmp-6;;;]
+$endif
+$if[$httpResult[songs;7;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;7;name];jmp-7;;;]
+$endif
+$if[$httpResult[songs;8;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;8;name];jmp-8;;;]
+$endif
+$if[$httpResult[songs;9;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;9;name];jmp-9;;;]
+$endif
+$if[$httpResult[songs;10;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;10;name];jmp-10;;;]
+$endif
+$if[$httpResult[songs;11;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;11;name];jmp-11;;;]
+$endif
+$if[$httpResult[songs;12;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;12;name];jmp-12;;;]
+$endif
+$if[$httpResult[songs;13;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;13;name];jmp-13;;;]
+$endif
+$if[$httpResult[songs;14;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;14;name];jmp-14;;;]
+$endif
+$if[$httpResult[songs;15;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;15;name];jmp-15;;;]
+$endif
+$if[$httpResult[songs;16;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;16;name];jmp-16;;;]
+$endif
+$if[$httpResult[songs;17;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;17;name];jmp-17;;;]
+$endif
+$if[$httpResult[songs;18;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;18;name];jmp-18;;;]
+$endif
+$if[$httpResult[songs;19;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;19;name];jmp-19;;;]
+$endif
+$if[$httpResult[songs;20;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;20;name];jmp-20;;;]
+$endif
+$if[$httpResult[songs;21;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;21;name];jmp-21;;;]
+$endif
+$if[$httpResult[songs;22;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;22;name];jmp-22;;;]
+$endif
+$if[$httpResult[songs;23;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;23;name];jmp-23;;;]
+$endif
+$if[$httpResult[songs;24;name]==]$else
+$addSelectMenuOption[Musics;$httpResult[songs;24;name];jmp-24;;;]
+$endif
+
+$endif
